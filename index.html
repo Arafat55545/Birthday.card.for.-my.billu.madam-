@@ -3,26 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Gift Card</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Sliding Book</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        .book-container {
+            width: 300px;
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #000;
+            background: #fff;
+        }
+        .pages {
+            display: flex;
+            width: 400%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+        .page {
+            width: 100%;
+            height: 100%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .page:nth-child(1) { background: lightblue; }
+        .page:nth-child(2) { background: lightcoral; }
+        .page:nth-child(3) { background: lightgreen; }
+        .page:nth-child(4) { background: lightgoldenrodyellow; }
+
+        .controls {
+            text-align: center;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <div class="book">
-        <div class="page cover front">
-            <h1>Happy Birthday!</h1>
-            <button onclick="nextPage()">Open</button>
-        </div>
-        <div class="page">
-            <img src="assets/friend-photo.jpg" alt="Friend's Photo">
-        </div>
-        <div class="page">
-            <p>Wishing you all the happiness and success in the world!</p>
-        </div>
-        <div class="page">
-            <h2>Enjoy Your Day!</h2>
-            <button onclick="prevPage()">Back</button>
+
+    <div class="book-container">
+        <div class="pages">
+            <div class="page">Page 1</div>
+            <div class="page">Page 2</div>
+            <div class="page">Page 3</div>
+            <div class="page">Page 4</div>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <div class="controls">
+        <button onclick="prevPage()">Previous</button>
+        <button onclick="nextPage()">Next</button>
+    </div>
+
+    <script>
+        let currentPage = 0;
+
+        function updateBook() {
+            document.querySelector(".pages").style.transform = `translateX(-${currentPage * 100}%)`;
+        }
+
+        function nextPage() {
+            if (currentPage < 3) { // Total pages - 1
+                currentPage++;
+                updateBook();
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                updateBook();
+            }
+        }
+    </script>
+
 </body>
 </html>
